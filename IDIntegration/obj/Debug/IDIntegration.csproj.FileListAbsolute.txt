@@ -1,0 +1,16 @@
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\IDIntegration.csprojAssemblyReference.cache
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\IDIntegration.csproj.GenerateResource.cache
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\IDIntegration.csproj.CoreCompileInputs.cache
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\IDIntegration.csproj.CopyComplete
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\bin\Debug\InterfaceDesigner.exe.config
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\bin\Debug\InterfaceDesigner.exe
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\bin\Debug\InterfaceDesigner.pdb
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.Properties.Resources.resources
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.exe
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.pdb
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.CheckButton.resources
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.InterfaceDesigner.resources
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.NewScript.resources
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.UserSwitcher.resources
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.ValueBox.resources
+C:\Users\akimo\source\repos\IDIntegration\IDIntegration\obj\Debug\InterfaceDesigner.Variables.resources
