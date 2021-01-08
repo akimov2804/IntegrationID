@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.IO;
 
 namespace InterfaceDesigner
 {
@@ -221,8 +222,6 @@ namespace InterfaceDesigner
         }
         public void LoadButtonData(Button btn, PropertyControls propertyControls)
         {
-            btn.Location = propertyControls.location; //расположение
-            btn.Size = propertyControls.size; // размер
             btn.Text = propertyControls.text; //текст
             btn.Name = propertyControls.name;
             btn.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
@@ -232,18 +231,18 @@ namespace InterfaceDesigner
             btn.AllowDrop = propertyControls.allowDrop;
             btn.Anchor = propertyControls.anchor;
             btn.AutoScrollOffset = propertyControls.autoScrollOffset;
-            btn.BackColor = propertyControls.backColor;
-            btn.BackgroundImage = propertyControls.backgroundImage;
+            btn.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) btn.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             btn.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             btn.Bounds = propertyControls.bounds;
             btn.Capture = propertyControls.capture;
             btn.CausesValidation = propertyControls.causesValidation;
             btn.ClientSize = propertyControls.clientSize;
-            btn.Cursor = propertyControls.cursor;
+            //btn.Cursor = propertyControls.cursor;
             btn.Enabled = propertyControls.enabled;
             btn.FlatStyle = propertyControls.flatStyle;
-            btn.Font = propertyControls.font;
-            btn.ForeColor = propertyControls.foreColor;
+            //btn.Font = propertyControls.font;
+            btn.ForeColor = Color.FromArgb(propertyControls.foreColor);
             btn.Height = propertyControls.height;
             btn.IsAccessible = propertyControls.isAccessible;
             btn.Left = propertyControls.left;
@@ -258,14 +257,15 @@ namespace InterfaceDesigner
             btn.UseWaitCursor = propertyControls.useWaitCursor;
             btn.Visible = propertyControls.visible;
             btn.Width = propertyControls.width;
+            btn.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            btn.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadSwitcherData(Label lbl, PropertyControls propertyControls)
         {
-            lbl.Location = propertyControls.location; //расположение
-            lbl.Font = propertyControls.font;
-            lbl.TextAlign = propertyControls.textAlign;
-            lbl.BackColor = propertyControls.backColor;
-            lbl.ForeColor = propertyControls.foreColor;
+            //lbl.Font = propertyControls.font;
+            //lbl.TextAlign = propertyControls.textAlign;
+            lbl.BackColor = Color.FromArgb(propertyControls.backColor);
+            lbl.ForeColor = Color.FromArgb(propertyControls.foreColor);
             lbl.Size = propertyControls.size; // размер
             lbl.Text = propertyControls.text; //текст
             lbl.Name = propertyControls.name;
@@ -276,17 +276,17 @@ namespace InterfaceDesigner
             lbl.AllowDrop = propertyControls.allowDrop;
             lbl.Anchor = propertyControls.anchor;
             lbl.AutoScrollOffset = propertyControls.autoScrollOffset;
-            lbl.BackColor = propertyControls.backColor;
-            lbl.BackgroundImage = propertyControls.backgroundImage;
+            lbl.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) lbl.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             lbl.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             lbl.Bounds = propertyControls.bounds;
             lbl.Capture = propertyControls.capture;
             lbl.CausesValidation = propertyControls.causesValidation;
             lbl.ClientSize = propertyControls.clientSize;
-            lbl.Cursor = propertyControls.cursor;
+            //lbl.Cursor = propertyControls.cursor;
             lbl.Enabled = propertyControls.enabled;
-            lbl.Font = propertyControls.font;
-            lbl.ForeColor = propertyControls.foreColor;
+            //lbl.Font = propertyControls.font;
+            lbl.ForeColor = Color.FromArgb(propertyControls.foreColor);
             lbl.Height = propertyControls.height;
             lbl.IsAccessible = propertyControls.isAccessible;
             lbl.Left = propertyControls.left;
@@ -301,10 +301,11 @@ namespace InterfaceDesigner
             lbl.UseWaitCursor = propertyControls.useWaitCursor;
             lbl.Visible = propertyControls.visible;
             lbl.Width = propertyControls.width;
+            lbl.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            lbl.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadCheckBoxData(CheckBox ckb, PropertyControls propertyControls)
         {
-            ckb.Location = propertyControls.location; //расположение
             ckb.Text = propertyControls.text; //текст
             ckb.Name = propertyControls.name;
             ckb.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
@@ -314,17 +315,17 @@ namespace InterfaceDesigner
             ckb.AllowDrop = propertyControls.allowDrop;
             ckb.Anchor = propertyControls.anchor;
             ckb.AutoScrollOffset = propertyControls.autoScrollOffset;
-            ckb.BackColor = propertyControls.backColor;
-            ckb.BackgroundImage = propertyControls.backgroundImage;
+            ckb.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) ckb.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             ckb.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             ckb.Bounds = propertyControls.bounds;
             ckb.Capture = propertyControls.capture;
             ckb.CausesValidation = propertyControls.causesValidation;
             ckb.ClientSize = propertyControls.clientSize;
-            ckb.Cursor = propertyControls.cursor;
+            //ckb.Cursor = propertyControls.cursor;
             ckb.Enabled = propertyControls.enabled;
-            ckb.Font = propertyControls.font;
-            ckb.ForeColor = propertyControls.foreColor;
+            //ckb.Font = propertyControls.font;
+            ckb.ForeColor = Color.FromArgb(propertyControls.foreColor);
             ckb.Height = propertyControls.height;
             ckb.IsAccessible = propertyControls.isAccessible;
             ckb.Left = propertyControls.left;
@@ -339,10 +340,11 @@ namespace InterfaceDesigner
             ckb.UseWaitCursor = propertyControls.useWaitCursor;
             ckb.Visible = propertyControls.visible;
             ckb.Width = propertyControls.width;
+            ckb.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            ckb.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadTextBoxData(Label lbl, PropertyControls propertyControls)
         {
-            lbl.Location = propertyControls.location; //расположение
             lbl.Text = propertyControls.text; //текст
             lbl.Name = propertyControls.name;
             lbl.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
@@ -352,17 +354,17 @@ namespace InterfaceDesigner
             lbl.AllowDrop = propertyControls.allowDrop;
             lbl.Anchor = propertyControls.anchor;
             lbl.AutoScrollOffset = propertyControls.autoScrollOffset;
-            lbl.BackColor = propertyControls.backColor;
-            lbl.BackgroundImage = propertyControls.backgroundImage;
+            lbl.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) lbl.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             lbl.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             lbl.Bounds = propertyControls.bounds;
             lbl.Capture = propertyControls.capture;
             lbl.CausesValidation = propertyControls.causesValidation;
             lbl.ClientSize = propertyControls.clientSize;
-            lbl.Cursor = propertyControls.cursor;
+            //lbl.Cursor = propertyControls.cursor;
             lbl.Enabled = propertyControls.enabled;
-            lbl.Font = propertyControls.font;
-            lbl.ForeColor = propertyControls.foreColor;
+            //lbl.Font = propertyControls.font;
+            lbl.ForeColor = Color.FromArgb(propertyControls.foreColor);
             lbl.Height = propertyControls.height;
             lbl.IsAccessible = propertyControls.isAccessible;
             lbl.Left = propertyControls.left;
@@ -377,13 +379,13 @@ namespace InterfaceDesigner
             lbl.UseWaitCursor = propertyControls.useWaitCursor;
             lbl.Visible = propertyControls.visible;
             lbl.Width = propertyControls.width;
+            lbl.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            lbl.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadPictureBoxData(PictureBox pic, PropertyControls propertyControls)
         {
-            pic.Location = propertyControls.location;
-            pic.Size = propertyControls.size;
             pic.Name = propertyControls.name;
-            pic.Image = propertyControls.image;
+            pic.Image = ByteToImage(Convert.FromBase64String(propertyControls.image)) ?? null;
             pic.SizeMode = propertyControls.sizeMode;
             pic.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             pic.AccessibleDescription = propertyControls.accessibleDescription;
@@ -392,17 +394,17 @@ namespace InterfaceDesigner
             pic.AllowDrop = propertyControls.allowDrop;
             pic.Anchor = propertyControls.anchor;
             pic.AutoScrollOffset = propertyControls.autoScrollOffset;
-            pic.BackColor = propertyControls.backColor;
-            pic.BackgroundImage = propertyControls.backgroundImage;
+            pic.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) pic.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             pic.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             pic.Bounds = propertyControls.bounds;
             pic.Capture = propertyControls.capture;
             pic.CausesValidation = propertyControls.causesValidation;
             pic.ClientSize = propertyControls.clientSize;
-            pic.Cursor = propertyControls.cursor;
+            //pic.Cursor = propertyControls.cursor;
             pic.Enabled = propertyControls.enabled;
-            pic.Font = propertyControls.font;
-            pic.ForeColor = propertyControls.foreColor;
+            //pic.Font = propertyControls.font;
+            pic.ForeColor = Color.FromArgb(propertyControls.foreColor);
             pic.Height = propertyControls.height;
             pic.IsAccessible = propertyControls.isAccessible;
             pic.Left = propertyControls.left;
@@ -417,11 +419,11 @@ namespace InterfaceDesigner
             pic.UseWaitCursor = propertyControls.useWaitCursor;
             pic.Visible = propertyControls.visible;
             pic.Width = propertyControls.width;
+            pic.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            pic.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadUserSwitcherData(UserSwitcher userSwitcher, PropertyControls propertyControls)
         {
-            userSwitcher.Location = propertyControls.location; //расположение
-            userSwitcher.Size = propertyControls.size; // размер
             userSwitcher.Name = propertyControls.name;
             userSwitcher.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             userSwitcher.AccessibleDescription = propertyControls.accessibleDescription;
@@ -430,17 +432,17 @@ namespace InterfaceDesigner
             userSwitcher.AllowDrop = propertyControls.allowDrop;
             userSwitcher.Anchor = propertyControls.anchor;
             userSwitcher.AutoScrollOffset = propertyControls.autoScrollOffset;
-            userSwitcher.BackColor = propertyControls.backColor;
-            userSwitcher.BackgroundImage = propertyControls.backgroundImage;
+            userSwitcher.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) userSwitcher.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             userSwitcher.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             userSwitcher.Bounds = propertyControls.bounds;
             userSwitcher.Capture = propertyControls.capture;
             userSwitcher.CausesValidation = propertyControls.causesValidation;
             userSwitcher.ClientSize = propertyControls.clientSize;
-            userSwitcher.Cursor = propertyControls.cursor;
+            //userSwitcher.Cursor = propertyControls.cursor;
             userSwitcher.Enabled = propertyControls.enabled;
-            userSwitcher.Font = propertyControls.font;
-            userSwitcher.ForeColor = propertyControls.foreColor;
+            //userSwitcher.Font = propertyControls.font;
+            userSwitcher.ForeColor = Color.FromArgb(propertyControls.foreColor);
             userSwitcher.Height = propertyControls.height;
             userSwitcher.IsAccessible = propertyControls.isAccessible;
             userSwitcher.Left = propertyControls.left;
@@ -457,19 +459,19 @@ namespace InterfaceDesigner
             userSwitcher.Width = propertyControls.width;
             userSwitcher.CommonPLCMemoryAddressByte = propertyControls.CommonPLCMemoryAddressByte;
             userSwitcher.CommonPLCMemoryBit = propertyControls.CommonPLCMemoryBit;
-            userSwitcher.ColorSwitchOFF = propertyControls.ColorSwitchOFF;
-            userSwitcher.ColorSwitchON = propertyControls.ColorSwitchON;
+            userSwitcher.ColorSwitchOFF = Color.FromArgb(propertyControls.ColorSwitchOFF);
+            userSwitcher.ColorSwitchON = Color.FromArgb(propertyControls.ColorSwitchON);
             userSwitcher.TextSwitchOFF = propertyControls.TextSwitchOFF;
             userSwitcher.TextSwitchON = propertyControls.TextSwitchON;
             userSwitcher.TextValue = propertyControls.TextValue;
-            userSwitcher.ColorValue = propertyControls.ColorValue;
+            userSwitcher.ColorValue = Color.FromArgb(propertyControls.ColorValue);
             userSwitcher.ItemOfKernel = propertyControls.ItemOfKernel;
             userSwitcher.State = propertyControls.state;
+            userSwitcher.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            userSwitcher.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadCheckButtonData(CheckButton checkButton, PropertyControls propertyControls)
         {
-            checkButton.Location = propertyControls.location; //расположение
-            checkButton.Size = propertyControls.size; // размер
             checkButton.Name = propertyControls.name;
             checkButton.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             checkButton.AccessibleDescription = propertyControls.accessibleDescription;
@@ -478,17 +480,16 @@ namespace InterfaceDesigner
             checkButton.AllowDrop = propertyControls.allowDrop;
             checkButton.Anchor = propertyControls.anchor;
             checkButton.AutoScrollOffset = propertyControls.autoScrollOffset;
-            checkButton.BackColor = propertyControls.backColor;
-            checkButton.BackgroundImage = propertyControls.backgroundImage;
-            checkButton.BackgroundImageLayout = propertyControls.backgroundImageLayout;
+            checkButton.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) checkButton.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage)); checkButton.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             checkButton.Bounds = propertyControls.bounds;
             checkButton.Capture = propertyControls.capture;
             checkButton.CausesValidation = propertyControls.causesValidation;
             checkButton.ClientSize = propertyControls.clientSize;
-            checkButton.Cursor = propertyControls.cursor;
+            //checkButton.Cursor = propertyControls.cursor;
             checkButton.Enabled = propertyControls.enabled;
-            checkButton.Font = propertyControls.font;
-            checkButton.ForeColor = propertyControls.foreColor;
+            //checkButton.Font = propertyControls.font;
+            checkButton.ForeColor = Color.FromArgb(propertyControls.foreColor);
             checkButton.Height = propertyControls.height;
             checkButton.IsAccessible = propertyControls.isAccessible;
             checkButton.Left = propertyControls.left;
@@ -505,22 +506,22 @@ namespace InterfaceDesigner
             checkButton.Width = propertyControls.width;
             checkButton.CommonPLCMemoryAddressByte = propertyControls.CommonPLCMemoryAddressByte;
             checkButton.CommonPLCMemoryBit = propertyControls.CommonPLCMemoryBit;
-            checkButton.ColorSwitchOFF = propertyControls.ColorSwitchOFF;
-            checkButton.ColorSwitchON = propertyControls.ColorSwitchON;
+            checkButton.ColorSwitchOFF = Color.FromArgb(propertyControls.ColorSwitchOFF);
+            checkButton.ColorSwitchON = Color.FromArgb(propertyControls.ColorSwitchON);
             checkButton.TextSwitchOFF = propertyControls.TextSwitchOFF;
             checkButton.TextSwitchON = propertyControls.TextSwitchON;
-            checkButton.ImageSwitchOFF = propertyControls.ImageSwitchOFF;
-            checkButton.ImageSwitchON = propertyControls.ImageSwitchON;
+            if (propertyControls.ImageSwitchOFF != null) checkButton.ImageSwitchOFF = ByteToImage(Convert.FromBase64String(propertyControls.ImageSwitchOFF));
+            if (propertyControls.ImageSwitchON != null) checkButton.ImageSwitchON = ByteToImage(Convert.FromBase64String(propertyControls.ImageSwitchON));
             checkButton.ShowImage = propertyControls.ShowImage;
             checkButton.ShowText = propertyControls.ShowText;
             checkButton.ItemOfKernel = propertyControls.ItemOfKernel;
             checkButton.SizeModeValue = propertyControls.backgroundImageLayout;
             checkButton.State = propertyControls.state;
+            checkButton.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            checkButton.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadUsersButtonData(UsersButton usersButton, PropertyControls propertyControls)
         {
-            usersButton.Location = propertyControls.location; //расположение
-            usersButton.Size = propertyControls.size; // размер
             usersButton.Name = propertyControls.name;
             usersButton.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             usersButton.AccessibleDescription = propertyControls.accessibleDescription;
@@ -529,16 +530,16 @@ namespace InterfaceDesigner
             usersButton.AllowDrop = propertyControls.allowDrop;
             usersButton.Anchor = propertyControls.anchor;
             usersButton.AutoScrollOffset = propertyControls.autoScrollOffset;
-            usersButton.BackColor = propertyControls.backColor;
-            usersButton.BackgroundImage = propertyControls.backgroundImage;
+            usersButton.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) usersButton.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             usersButton.Bounds = propertyControls.bounds;
             usersButton.Capture = propertyControls.capture;
             usersButton.CausesValidation = propertyControls.causesValidation;
             usersButton.ClientSize = propertyControls.clientSize;
-            usersButton.Cursor = propertyControls.cursor;
+            //usersButton.Cursor = propertyControls.cursor;
             usersButton.Enabled = propertyControls.enabled;
-            usersButton.Font = propertyControls.font;
-            usersButton.ForeColor = propertyControls.foreColor;
+            //usersButton.Font = propertyControls.font;
+            usersButton.ForeColor = Color.FromArgb(propertyControls.foreColor);
             usersButton.Height = propertyControls.height;
             usersButton.IsAccessible = propertyControls.isAccessible;
             usersButton.Left = propertyControls.left;
@@ -558,11 +559,12 @@ namespace InterfaceDesigner
             usersButton.ItemOfKernel = propertyControls.ItemOfKernel;
             usersButton.SizeModeValue = propertyControls.backgroundImageLayout;
             usersButton.TextValue = propertyControls.TextValue;
+            usersButton.ColorValue = Color.FromArgb(propertyControls.ColorValue);
+            usersButton.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            usersButton.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadValueBoxData(ValueBox valueBox, PropertyControls propertyControls)
         {
-            valueBox.Location = propertyControls.location; //расположение
-            valueBox.Size = propertyControls.size; // размер
             valueBox.Name = propertyControls.name;
             valueBox.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             valueBox.AccessibleDescription = propertyControls.accessibleDescription;
@@ -571,17 +573,17 @@ namespace InterfaceDesigner
             valueBox.AllowDrop = propertyControls.allowDrop;
             valueBox.Anchor = propertyControls.anchor;
             valueBox.AutoScrollOffset = propertyControls.autoScrollOffset;
-            valueBox.BackColor = propertyControls.backColor;
-            valueBox.BackgroundImage = propertyControls.backgroundImage;
+            valueBox.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) valueBox.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             valueBox.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             valueBox.Bounds = propertyControls.bounds;
             valueBox.Capture = propertyControls.capture;
             valueBox.CausesValidation = propertyControls.causesValidation;
             valueBox.ClientSize = propertyControls.clientSize;
-            valueBox.Cursor = propertyControls.cursor;
+            //valueBox.Cursor = propertyControls.cursor;
             valueBox.Enabled = propertyControls.enabled;
-            valueBox.Font = propertyControls.font;
-            valueBox.ForeColor = propertyControls.foreColor;
+            //valueBox.Font = propertyControls.font;
+            valueBox.ForeColor = Color.FromArgb(propertyControls.foreColor);
             valueBox.Height = propertyControls.height;
             valueBox.IsAccessible = propertyControls.isAccessible;
             valueBox.Left = propertyControls.left;
@@ -598,17 +600,17 @@ namespace InterfaceDesigner
             valueBox.Width = propertyControls.width;
             valueBox.CommonPLCMemoryAddressByte = propertyControls.CommonPLCMemoryAddressByte;
             valueBox.CommonPLCMemoryBit = propertyControls.CommonPLCMemoryBit;
-            valueBox.BackColorValue = propertyControls.BackColorValue;
-            valueBox.FontValue = propertyControls.FontValue;
-            valueBox.ForeColorValue = propertyControls.ForeColorValue;
+            valueBox.BackColorValue = Color.FromArgb(propertyControls.BackColorValue);
+            //valueBox.FontValue = propertyControls.FontValue;
+            valueBox.ForeColorValue = Color.FromArgb(propertyControls.ForeColorValue);
             valueBox.TextValue = propertyControls.TextValue;
             valueBox.ValueType = propertyControls.ValueType;
             valueBox.ItemOfKernel = propertyControls.ItemOfKernel;
+            valueBox.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            valueBox.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadTextBoxData(UserText userText, PropertyControls propertyControls)
         {
-            userText.Location = propertyControls.location; //расположение
-            userText.Size = propertyControls.size; // размер
             userText.Name = propertyControls.name;
             userText.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             userText.AccessibleDescription = propertyControls.accessibleDescription;
@@ -617,17 +619,17 @@ namespace InterfaceDesigner
             userText.AllowDrop = propertyControls.allowDrop;
             userText.Anchor = propertyControls.anchor;
             userText.AutoScrollOffset = propertyControls.autoScrollOffset;
-            userText.BackColor = propertyControls.backColor;
-            userText.BackgroundImage = propertyControls.backgroundImage;
+            userText.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) userText.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             userText.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             userText.Bounds = propertyControls.bounds;
             userText.Capture = propertyControls.capture;
             userText.CausesValidation = propertyControls.causesValidation;
             userText.ClientSize = propertyControls.clientSize;
-            userText.Cursor = propertyControls.cursor;
+            //userText.Cursor = propertyControls.cursor;
             userText.Enabled = propertyControls.enabled;
-            userText.Font = propertyControls.font;
-            userText.ForeColor = propertyControls.foreColor;
+            //userText.Font = propertyControls.font;
+            userText.ForeColor = Color.FromArgb(propertyControls.foreColor);
             userText.Height = propertyControls.height;
             userText.IsAccessible = propertyControls.isAccessible;
             userText.Left = propertyControls.left;
@@ -650,11 +652,11 @@ namespace InterfaceDesigner
             userText.Text3rdOption = propertyControls.ThirdText;
             userText.Text4thOption = propertyControls.FourthText;
             userText.Text5thOption = propertyControls.FifthText;
+            userText.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            userText.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public void LoadImageBoxData(UserImage userImage, PropertyControls propertyControls)
         {
-            userImage.Location = propertyControls.location; //расположение
-            userImage.Size = propertyControls.size; // размер
             userImage.Name = propertyControls.name;
             userImage.AccessibleDefaultActionDescription = propertyControls.accessibleDefaultActionDescription;
             userImage.AccessibleDescription = propertyControls.accessibleDescription;
@@ -663,17 +665,17 @@ namespace InterfaceDesigner
             userImage.AllowDrop = propertyControls.allowDrop;
             userImage.Anchor = propertyControls.anchor;
             userImage.AutoScrollOffset = propertyControls.autoScrollOffset;
-            userImage.BackColor = propertyControls.backColor;
-            userImage.BackgroundImage = propertyControls.backgroundImage;
+            userImage.BackColor = Color.FromArgb(propertyControls.backColor);
+            if (propertyControls.backgroundImage != null) userImage.BackgroundImage = ByteToImage(Convert.FromBase64String(propertyControls.backgroundImage));
             userImage.BackgroundImageLayout = propertyControls.backgroundImageLayout;
             userImage.Bounds = propertyControls.bounds;
             userImage.Capture = propertyControls.capture;
             userImage.CausesValidation = propertyControls.causesValidation;
             userImage.ClientSize = propertyControls.clientSize;
-            userImage.Cursor = propertyControls.cursor;
+            //userImage.Cursor = propertyControls.cursor;
             userImage.Enabled = propertyControls.enabled;
-            userImage.Font = propertyControls.font;
-            userImage.ForeColor = propertyControls.foreColor;
+            //userImage.Font = propertyControls.font;
+            userImage.ForeColor = Color.FromArgb(propertyControls.foreColor);
             userImage.Height = propertyControls.height;
             userImage.IsAccessible = propertyControls.isAccessible;
             userImage.Left = propertyControls.left;
@@ -688,17 +690,19 @@ namespace InterfaceDesigner
             userImage.UseWaitCursor = propertyControls.useWaitCursor;
             userImage.Visible = propertyControls.visible;
             userImage.Width = propertyControls.width;
-            userImage.ImageOffValue = propertyControls.ImageOffValue;
-            userImage.ImageOnValue = propertyControls.ImageOnValue;
-            userImage.Image = propertyControls.image;
+            if (userImage.ImageOffValue != null) userImage.ImageOffValue = ByteToImage(Convert.FromBase64String(propertyControls.ImageOffValue));
+            if (userImage.ImageOnValue != null) userImage.ImageOnValue = ByteToImage(Convert.FromBase64String(propertyControls.ImageOnValue));
+            if (userImage.Image != null) userImage.Image = ByteToImage(Convert.FromBase64String(propertyControls.image));
             userImage.ItemOfKernel = propertyControls.ItemOfKernel;
-            userImage.Image1stOption = propertyControls.First;
-            userImage.Image2ndOption = propertyControls.Second;
-            userImage.Image3rdOption = propertyControls.Third;
-            userImage.Image4thOption = propertyControls.Fourth;
-            userImage.Image5thOption = propertyControls.Fifth;
+            if (userImage.Image1stOption != null) userImage.Image1stOption = ByteToImage(Convert.FromBase64String(propertyControls.First));
+            if (userImage.Image2ndOption != null) userImage.Image2ndOption = ByteToImage(Convert.FromBase64String(propertyControls.Second));
+            if (userImage.Image3rdOption != null) userImage.Image3rdOption = ByteToImage(Convert.FromBase64String(propertyControls.Third));
+            if (userImage.Image4thOption != null) userImage.Image4thOption = ByteToImage(Convert.FromBase64String(propertyControls.Fourth));
+            if (userImage.Image5thOption != null) userImage.Image5thOption = ByteToImage(Convert.FromBase64String(propertyControls.Fifth));
             userImage.SizeModeValue = propertyControls.sizeMode;
             userImage.state = propertyControls.state;
+            userImage.Location = new Point(Convert.ToInt32(propertyControls.locationX / 1.16), Convert.ToInt32(propertyControls.locationY / 1.16));
+            userImage.Size = new Size(Convert.ToInt32(propertyControls.width / 1.16), Convert.ToInt32(propertyControls.height / 1.16));
         }
         public PropertyControls[] SaveData(Panel WorkPanel)
         {
@@ -707,7 +711,8 @@ namespace InterfaceDesigner
             {
                 PropertyControls propertyControls = new PropertyControls();
                 Control ctrl = WorkPanel.Controls[i] ?? null;
-                propertyControls.type = ctrl.GetType() ?? null;
+                string[] typeControl = ctrl.GetType().ToString().Split('.');
+                propertyControls.type = typeControl[typeControl.Length - 1] ?? null;
                 propertyControls.accessibleDefaultActionDescription = ctrl.AccessibleDefaultActionDescription ?? null;
                 propertyControls.accessibleDescription = ctrl.AccessibleDescription ?? null;
                 propertyControls.accessibleName = ctrl.AccessibleName ?? null;
@@ -715,8 +720,8 @@ namespace InterfaceDesigner
                 propertyControls.allowDrop = ctrl.AllowDrop;
                 propertyControls.anchor = ctrl.Anchor;
                 propertyControls.autoScrollOffset = ctrl.AutoScrollOffset;
-                propertyControls.backColor = ctrl.BackColor;
-                propertyControls.backgroundImage = ctrl.BackgroundImage ?? null;
+                propertyControls.backColor = ctrl.BackColor.ToArgb();
+                if (ctrl.BackgroundImage != null) propertyControls.backgroundImage = Convert.ToBase64String(ImageToByteArray(ctrl.BackgroundImage));
                 propertyControls.backgroundImageLayout = ctrl.BackgroundImageLayout;
                 propertyControls.bottom = ctrl.Bottom;
                 propertyControls.bounds = ctrl.Bounds;
@@ -727,21 +732,21 @@ namespace InterfaceDesigner
                 propertyControls.clientRectangle = ctrl.ClientRectangle;
                 propertyControls.clientSize = ctrl.ClientSize;
                 propertyControls.companyName = ctrl.CompanyName ?? null;
-                propertyControls.container = ctrl.Container ?? null;
+                //propertyControls.container = ctrl.Container ?? null;
                 propertyControls.containsFocus = ctrl.ContainsFocus;
                 propertyControls.contextMenuStrip = ctrl.ContextMenuStrip.ToString() ?? null;
                 propertyControls.controls = ctrl.Controls.ToString() ?? null;
                 propertyControls.created = ctrl.Created;
-                propertyControls.cursor = ctrl.Cursor ?? null;
+                //propertyControls.cursor = ctrl.Cursor ?? null;
                 propertyControls.DataBindings = ctrl.DataBindings.ToString() ?? null;
                 propertyControls.displayRectangle = ctrl.DisplayRectangle;
                 propertyControls.Disposing = ctrl.Disposing;
                 propertyControls.dockStyle = ctrl.Dock;
                 propertyControls.enabled = ctrl.Enabled;
                 propertyControls.focused = ctrl.Focused;
-                propertyControls.font = ctrl.Font ?? null;
-                propertyControls.foreColor = ctrl.ForeColor;
-                propertyControls.handle = ctrl.Handle;
+                //propertyControls.font = ctrl.Font ?? null;
+                propertyControls.foreColor = ctrl.ForeColor.ToArgb();
+                //propertyControls.handle = ctrl.Handle;
                 propertyControls.hasChildren = ctrl.HasChildren;
                 propertyControls.height = ctrl.Height;
                 propertyControls.imeMode = ctrl.ImeMode;
@@ -752,7 +757,8 @@ namespace InterfaceDesigner
                 propertyControls.isMirrored = ctrl.IsMirrored;
                 propertyControls.LayoutEngine = ctrl.LayoutEngine.ToString() ?? null;
                 propertyControls.left = ctrl.Left;
-                propertyControls.location = ctrl.Location;
+                propertyControls.locationX = ctrl.Location.X;
+                propertyControls.locationY = ctrl.Location.Y;
                 propertyControls.margin = ctrl.Margin;
                 propertyControls.maximumSize = ctrl.MaximumSize;
                 propertyControls.minimumSize = ctrl.MinimumSize;
@@ -775,7 +781,7 @@ namespace InterfaceDesigner
                 propertyControls.useWaitCursor = ctrl.UseWaitCursor;
                 propertyControls.visible = ctrl.Visible;
                 propertyControls.width = ctrl.Width;
-                if (propertyControls.type == typeof(Button))
+                if (propertyControls.type == "Button")
                 {
                     Button btn = ctrl as Button;
                     if (btn != null)
@@ -783,68 +789,68 @@ namespace InterfaceDesigner
                         propertyControls.flatStyle = btn.FlatStyle;
                     }
                 }
-                if (propertyControls.type == typeof(PictureBox))
+                if (propertyControls.type == "PictureBox")
                 {
                     PictureBox pic = ctrl as PictureBox;
                     if (pic != null)
                     {
-                        propertyControls.image = pic.Image ?? null;
+                        if (pic.Image != null) propertyControls.image = Convert.ToBase64String(ImageToByteArray(pic.Image));
                         propertyControls.sizeMode = pic.SizeMode;
                     }
                 }
-                if (propertyControls.type == typeof(Label))
+                if (propertyControls.type == "Label")
                 {
                     Label lbl = ctrl as Label;
                     if (lbl != null)
                     {
-                        propertyControls.textAlign = lbl.TextAlign;
+                        //propertyControls.textAlign = lbl.TextAlign;
                     }
                 }
-                if (propertyControls.type == typeof(ValueBox))
+                if (propertyControls.type == "ValueBox")
                 {
                     ValueBox vlb = ctrl as ValueBox;
                     if (vlb != null)
                     {
                         propertyControls.CommonPLCMemoryAddressByte = vlb.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = vlb.CommonPLCMemoryBit;
-                        propertyControls.BackColorValue = vlb.BackColorValue;
-                        propertyControls.FontValue = vlb.FontValue;
-                        propertyControls.ForeColorValue = vlb.ForeColorValue;
+                        propertyControls.BackColorValue = vlb.BackColorValue.ToArgb();
+                        //propertyControls.FontValue = vlb.FontValue;
+                        propertyControls.ForeColorValue = vlb.ForeColorValue.ToArgb();
                         propertyControls.TextValue = vlb.TextValue;
                         propertyControls.ValueType = vlb.ValueType;
                         propertyControls.ItemOfKernel = vlb.ItemOfKernel;
                     }
                 }
-                if (propertyControls.type == typeof(UserSwitcher))
+                if (propertyControls.type == "UserSwitcher")
                 {
                     UserSwitcher swt = ctrl as UserSwitcher;
                     if (swt != null)
                     {
                         propertyControls.CommonPLCMemoryAddressByte = swt.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = swt.CommonPLCMemoryBit;
-                        propertyControls.ColorSwitchOFF = swt.ColorSwitchOFF;
-                        propertyControls.ColorSwitchON = swt.ColorSwitchON;
+                        propertyControls.ColorSwitchOFF = swt.ColorSwitchOFF.ToArgb();
+                        propertyControls.ColorSwitchON = swt.ColorSwitchON.ToArgb();
                         propertyControls.TextSwitchOFF = swt.TextSwitchOFF;
                         propertyControls.TextSwitchON = swt.TextSwitchON;
                         propertyControls.TextValue = swt.TextValue;
-                        propertyControls.ColorValue = swt.ColorValue;
+                        propertyControls.ColorValue = swt.ColorValue.ToArgb();
                         propertyControls.ItemOfKernel = swt.ItemOfKernel;
                         propertyControls.state = swt.State;
                     }
                 }
-                if (propertyControls.type == typeof(CheckButton))
+                if (propertyControls.type == "CheckButton")
                 {
                     CheckButton cbt = ctrl as CheckButton;
                     if (cbt != null)
                     {
                         propertyControls.CommonPLCMemoryAddressByte = cbt.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = cbt.CommonPLCMemoryBit;
-                        propertyControls.ColorSwitchOFF = cbt.ColorSwitchOFF;
-                        propertyControls.ColorSwitchON = cbt.ColorSwitchON;
+                        propertyControls.ColorSwitchOFF = cbt.ColorSwitchOFF.ToArgb();
+                        propertyControls.ColorSwitchON = cbt.ColorSwitchON.ToArgb();
                         propertyControls.TextSwitchOFF = cbt.TextSwitchOFF;
                         propertyControls.TextSwitchON = cbt.TextSwitchON;
-                        propertyControls.ImageSwitchOFF = cbt.ImageSwitchOFF;
-                        propertyControls.ImageSwitchON = cbt.ImageSwitchON;
+                        if (propertyControls.ImageSwitchOFF != null) propertyControls.ImageSwitchOFF = Convert.ToBase64String(ImageToByteArray(cbt.ImageSwitchOFF));
+                        if (propertyControls.ImageSwitchON != null) propertyControls.ImageSwitchON = Convert.ToBase64String(ImageToByteArray(cbt.ImageSwitchON));
                         propertyControls.ShowImage = cbt.ShowImage;
                         propertyControls.ShowText = cbt.ShowText;
                         propertyControls.ItemOfKernel = cbt.ItemOfKernel;
@@ -852,7 +858,7 @@ namespace InterfaceDesigner
                         propertyControls.state = cbt.State;
                     }
                 }
-                if (propertyControls.type == typeof(UsersButton))
+                if (propertyControls.type == "UsersButton")
                 {
                     UsersButton cbt = ctrl as UsersButton;
                     if (cbt != null)
@@ -862,28 +868,29 @@ namespace InterfaceDesigner
                         propertyControls.ItemOfKernel = cbt.ItemOfKernel;
                         propertyControls.backgroundImageLayout = cbt.SizeModeValue;
                         propertyControls.TextValue = cbt.TextValue;
+                        propertyControls.ColorValue = cbt.ColorValue.ToArgb();
                     }
                 }
-                if (propertyControls.type == typeof(UserImage))
+                if (propertyControls.type == "UserImage")
                 {
                     UserImage img = ctrl as UserImage;
                     if (img != null)
                     {
-                        propertyControls.ImageOffValue = img.ImageOffValue;
-                        propertyControls.ImageOnValue = img.ImageOnValue;
-                        propertyControls.First = img.Image1stOption;
-                        propertyControls.Second = img.Image2ndOption;
-                        propertyControls.Third = img.Image3rdOption;
-                        propertyControls.Fourth = img.Image4thOption;
-                        propertyControls.Fifth = img.Image5thOption;
-                        propertyControls.image = img.Image;
+                        if (img.ImageOffValue != null) propertyControls.ImageOffValue = Convert.ToBase64String(ImageToByteArray(img.ImageOffValue));
+                        if (img.ImageOnValue != null) propertyControls.ImageOnValue = Convert.ToBase64String(ImageToByteArray(img.ImageOnValue));
+                        if (img.Image1stOption != null) propertyControls.First = Convert.ToBase64String(ImageToByteArray(img.Image1stOption));
+                        if (img.Image2ndOption != null) propertyControls.Second = Convert.ToBase64String(ImageToByteArray(img.Image2ndOption));
+                        if (img.Image3rdOption != null) propertyControls.Third = Convert.ToBase64String(ImageToByteArray(img.Image3rdOption));
+                        if (img.Image4thOption != null) propertyControls.Fourth = Convert.ToBase64String(ImageToByteArray(img.Image4thOption));
+                        if (img.Image5thOption != null) propertyControls.Fifth = Convert.ToBase64String(ImageToByteArray(img.Image5thOption));
+                        if (img.Image != null) propertyControls.image = Convert.ToBase64String(ImageToByteArray(img.Image));
                         propertyControls.CommonPLCMemoryAddressByte = img.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = img.CommonPLCMemoryBit;
                         propertyControls.sizeMode = img.SizeModeValue;
                         propertyControls.state = img.State;
                     }
                 }
-                if (propertyControls.type == typeof(UserText))
+                if (propertyControls.type == "UserText")
                 {
                     UserText txt = ctrl as UserText;
                     if (txt != null)
@@ -1437,8 +1444,8 @@ namespace InterfaceDesigner
                 PropertyControls propertyControls = new PropertyControls();
                 Control ctrl = Parent.Controls[i] ?? null;
                 propertyControls.numberOfControl = i;
-                propertyControls.type = ctrl.GetType() ?? null;
-                if (propertyControls.type == typeof(ValueBox))
+                propertyControls.type = ctrl.GetType().ToString() ?? null;
+                if (propertyControls.type == "ValueBox")
                 {
                     ValueBox vlb = ctrl as ValueBox;
                     if (vlb != null)
@@ -1450,40 +1457,40 @@ namespace InterfaceDesigner
                         propertyControls.ItemOfKernel = vlb.ItemOfKernel;
                     }
                 }
-                if (propertyControls.type == typeof(UserSwitcher))
+                if (propertyControls.type == "UserSwitcher")
                 {
                     UserSwitcher swt = ctrl as UserSwitcher;
                     if (swt != null)
                     {
                         propertyControls.CommonPLCMemoryAddressByte = swt.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = swt.CommonPLCMemoryBit;
-                        propertyControls.ColorSwitchOFF = swt.ColorSwitchOFF;
-                        propertyControls.ColorSwitchON = swt.ColorSwitchON;
+                        propertyControls.ColorSwitchOFF = swt.ColorSwitchOFF.ToArgb();
+                        propertyControls.ColorSwitchON = swt.ColorSwitchON.ToArgb();
                         propertyControls.TextSwitchOFF = swt.TextSwitchOFF;
                         propertyControls.TextSwitchON = swt.TextSwitchON;
                         propertyControls.ItemOfKernel = swt.ItemOfKernel;
                     }
                 }
-                if (propertyControls.type == typeof(CheckButton))
+                if (propertyControls.type == "CheckButton")
                 {
                     CheckButton cbt = ctrl as CheckButton;
                     if (cbt != null)
                     {
                         propertyControls.CommonPLCMemoryAddressByte = cbt.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = cbt.CommonPLCMemoryBit;
-                        propertyControls.ColorSwitchOFF = cbt.ColorSwitchOFF;
-                        propertyControls.ColorSwitchON = cbt.ColorSwitchON;
+                        propertyControls.ColorSwitchOFF = cbt.ColorSwitchOFF.ToArgb();
+                        propertyControls.ColorSwitchON = cbt.ColorSwitchON.ToArgb();
                         propertyControls.TextSwitchOFF = cbt.TextSwitchOFF;
                         propertyControls.TextSwitchON = cbt.TextSwitchON;
-                        propertyControls.ImageSwitchOFF = cbt.ImageSwitchOFF;
-                        propertyControls.ImageSwitchON = cbt.ImageSwitchON;
+                        if (cbt.ImageSwitchOFF != null) propertyControls.ImageSwitchOFF = Convert.ToBase64String(ImageToByteArray(cbt.ImageSwitchOFF));
+                        if (cbt.ImageSwitchON != null) propertyControls.ImageSwitchON = Convert.ToBase64String(ImageToByteArray(cbt.ImageSwitchON));
                         propertyControls.ShowImage = cbt.ShowImage;
                         propertyControls.ShowText = cbt.ShowText;
                         propertyControls.ItemOfKernel = cbt.ItemOfKernel;
                         propertyControls.backgroundImageLayout = cbt.backgroundImageLayout;
                     }
                 }
-                if (propertyControls.type == typeof(UsersButton))
+                if (propertyControls.type == "UsersButton")
                 {
                     UsersButton cbt = ctrl as UsersButton;
                     if (cbt != null)
@@ -1495,25 +1502,25 @@ namespace InterfaceDesigner
                         propertyControls.backgroundImageLayout = cbt.backgroundImageLayout;
                     }
                 }
-                if (propertyControls.type == typeof(UserImage))
+                if (propertyControls.type == "UserImage")
                 {
                     UserImage img = ctrl as UserImage;
                     if (img != null)
                     {
-                        propertyControls.ImageOffValue = img.ImageOffValue;
-                        propertyControls.ImageOnValue = img.ImageOnValue;
-                        propertyControls.First = img.Image1stOption;
-                        propertyControls.Second = img.Image2ndOption;
-                        propertyControls.Third = img.Image3rdOption;
-                        propertyControls.Fourth = img.Image4thOption;
-                        propertyControls.Fifth = img.Image5thOption;
-                        propertyControls.image = img.Image;
+                        if (img.Image != null) propertyControls.image = Convert.ToBase64String(ImageToByteArray(img.Image));
+                        if (img.ImageOffValue != null) propertyControls.ImageOffValue = Convert.ToBase64String(ImageToByteArray(img.ImageOffValue));
+                        if (img.ImageOnValue != null) propertyControls.ImageOnValue = Convert.ToBase64String(ImageToByteArray(img.ImageOnValue));
+                        if (img.Image1stOption != null) propertyControls.First = Convert.ToBase64String(ImageToByteArray(img.Image1stOption));
+                        if (img.Image2ndOption != null) propertyControls.Second = Convert.ToBase64String(ImageToByteArray(img.Image2ndOption));
+                        if (img.Image3rdOption != null) propertyControls.Third = Convert.ToBase64String(ImageToByteArray(img.Image3rdOption));
+                        if (img.Image4thOption != null) propertyControls.Fourth = Convert.ToBase64String(ImageToByteArray(img.Image4thOption));
+                        if (img.Image5thOption != null) propertyControls.Fifth = Convert.ToBase64String(ImageToByteArray(img.Image5thOption));
                         propertyControls.CommonPLCMemoryAddressByte = img.CommonPLCMemoryAddressByte;
                         propertyControls.CommonPLCMemoryBit = img.CommonPLCMemoryBit;
                         propertyControls.sizeMode = img.SizeModeValue;
                     }
                 }
-                if (propertyControls.type == typeof(UserText))
+                if (propertyControls.type == "UserText")
                 {
                     UserText txt = ctrl as UserText;
                     if (txt != null)
@@ -1530,6 +1537,22 @@ namespace InterfaceDesigner
                 }
                 indexes.Add(propertyControls);
             }
+        }
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
+        public Image ByteToImage(byte[] byteArrayIn)
+        {
+            using (var ms = new MemoryStream(byteArrayIn))
+            {
+                return Image.FromStream(ms);
+            }
+        
         }
         
     }

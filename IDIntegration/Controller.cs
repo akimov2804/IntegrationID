@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InterfaceDesigner
 {
@@ -358,168 +359,171 @@ namespace InterfaceDesigner
         }
         public void Load(string filename, Panel Parent, ListBox ListOfFigures)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read);
-            try
+            XmlSerializer formatter = new XmlSerializer(typeof(XMLLayout));
+            using (FileStream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
-                PropertyControls[] propertyControlsAll = (PropertyControls[])formatter.Deserialize(fileStream);
-                foreach (PropertyControls propertyControls in propertyControlsAll)
+                XMLLayout layout = (XMLLayout)formatter.Deserialize(fileStream);
+                try
                 {
-                    if (propertyControls.type == typeof(Button))
+                    //PropertyControls[] propertyControlsAll = (PropertyControls[])formatter.Deserialize(fileStream);
+                    foreach (PropertyControls propertyControls in layout.PropertyControls)
                     {
-                        Button ctrl = new Button();
-                        model.LoadButtonData(ctrl, propertyControls);
-                        Parent.Controls.Add(ctrl);
-                        ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(ctrl);
-                    }
-                    if (propertyControls.type == typeof(CheckBox))
-                    {
-                        CheckBox ctrl = new CheckBox();
-                        model.LoadCheckBoxData(ctrl, propertyControls);
-                        Parent.Controls.Add(ctrl);
-                        ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(ctrl);
-                    }
-                    if (propertyControls.type == typeof(PictureBox))
-                    {
-                        PictureBox ctrl = new PictureBox();
-                        model.LoadPictureBoxData(ctrl, propertyControls);
-                        Parent.Controls.Add(ctrl);
-                        ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(ctrl);
-                    }
-                    if (propertyControls.type == typeof(ValueBox))
-                    {
-                        ValueBox ctrl = new ValueBox();
-                        model.LoadValueBoxData(ctrl, propertyControls);
-                        Parent.Controls.Add(ctrl);
-                        ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(ctrl);
-                    }
-                    if (propertyControls.type == typeof(UserText))
-                    {
-                        UserText ctrl = new UserText();
-                        model.LoadTextBoxData(ctrl, propertyControls);
-                        Parent.Controls.Add(ctrl);
-                        ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(ctrl);
-                    }
-                    if (propertyControls.type == typeof(UserImage))
-                    {
-                        UserImage ctrl = new UserImage();
-                        model.LoadImageBoxData(ctrl, propertyControls);
-                        Parent.Controls.Add(ctrl);
-                        ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(ctrl);
-                    }
-                    if (propertyControls.type == typeof(Label))
-                    {
-                        if (propertyControls.name.Contains("Switcher"))
+                        if (propertyControls.type == "Button")
                         {
-                            Label ctrl = new Label();
-                            model.LoadSwitcherData(ctrl, propertyControls);
+                            Button ctrl = new Button();
+                            model.LoadButtonData(ctrl, propertyControls);
                             Parent.Controls.Add(ctrl);
                             ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
                             ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
                             view.AddControl(ctrl);
                         }
-                        if (propertyControls.name.Contains("TextBox"))
+                        if (propertyControls.type == "CheckBox")
                         {
-                            Label ctrl = new Label();
+                            CheckBox ctrl = new CheckBox();
+                            model.LoadCheckBoxData(ctrl, propertyControls);
+                            Parent.Controls.Add(ctrl);
+                            ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(ctrl);
+                        }
+                        if (propertyControls.type == "PictureBox")
+                        {
+                            PictureBox ctrl = new PictureBox();
+                            model.LoadPictureBoxData(ctrl, propertyControls);
+                            Parent.Controls.Add(ctrl);
+                            ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(ctrl);
+                        }
+                        if (propertyControls.type == "ValueBox")
+                        {
+                            ValueBox ctrl = new ValueBox();
+                            model.LoadValueBoxData(ctrl, propertyControls);
+                            Parent.Controls.Add(ctrl);
+                            ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(ctrl);
+                        }
+                        if (propertyControls.type == "UserText")
+                        {
+                            UserText ctrl = new UserText();
                             model.LoadTextBoxData(ctrl, propertyControls);
                             Parent.Controls.Add(ctrl);
                             ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
                             ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
                             view.AddControl(ctrl);
                         }
-                    }
-                    if (propertyControls.type == typeof(UserSwitcher))
-                    {
-                        UserSwitcher userSwitcher = new UserSwitcher();
-                        model.LoadUserSwitcherData(userSwitcher, propertyControls);
-                        Parent.Controls.Add(userSwitcher);
-                        userSwitcher.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        userSwitcher.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(userSwitcher);
-                    }
-                    if (propertyControls.type == typeof(CheckButton))
-                    {
-                        CheckButton checkButton = new CheckButton();
-                        model.LoadCheckButtonData(checkButton, propertyControls);
-                        Parent.Controls.Add(checkButton);
-                        checkButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        checkButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(checkButton);
-                    }
-                    if (propertyControls.type == typeof(UsersButton))
-                    {
-                        UsersButton usersButton = new UsersButton();
-                        model.LoadUsersButtonData(usersButton, propertyControls);
-                        Parent.Controls.Add(usersButton);
-                        usersButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
-                        usersButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
-                        view.AddControl(usersButton);
+                        if (propertyControls.type == "UserImage")
+                        {
+                            UserImage ctrl = new UserImage();
+                            model.LoadImageBoxData(ctrl, propertyControls);
+                            Parent.Controls.Add(ctrl);
+                            ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(ctrl);
+                        }
+                        if (propertyControls.type == "Label")
+                        {
+                            if (propertyControls.name.Contains("Switcher"))
+                            {
+                                Label ctrl = new Label();
+                                model.LoadSwitcherData(ctrl, propertyControls);
+                                Parent.Controls.Add(ctrl);
+                                ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                                ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                                view.AddControl(ctrl);
+                            }
+                            if (propertyControls.name.Contains("TextBox"))
+                            {
+                                Label ctrl = new Label();
+                                model.LoadTextBoxData(ctrl, propertyControls);
+                                Parent.Controls.Add(ctrl);
+                                ctrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                                ctrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                                view.AddControl(ctrl);
+                            }
+                        }
+                        if (propertyControls.type == "UserSwitcher")
+                        {
+                            UserSwitcher userSwitcher = new UserSwitcher();
+                            model.LoadUserSwitcherData(userSwitcher, propertyControls);
+                            Parent.Controls.Add(userSwitcher);
+                            userSwitcher.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            userSwitcher.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(userSwitcher);
+                        }
+                        if (propertyControls.type == "CheckButton")
+                        {
+                            CheckButton checkButton = new CheckButton();
+                            model.LoadCheckButtonData(checkButton, propertyControls);
+                            Parent.Controls.Add(checkButton);
+                            checkButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            checkButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(checkButton);
+                        }
+                        if (propertyControls.type == "UsersButton")
+                        {
+                            UsersButton usersButton = new UsersButton();
+                            model.LoadUsersButtonData(usersButton, propertyControls);
+                            Parent.Controls.Add(usersButton);
+                            usersButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlMouseDown);
+                            usersButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlMouseUp);
+                            view.AddControl(usersButton);
+                        }
                     }
                 }
-            }
-            catch (SerializationException e)
-            {
-                Console.WriteLine("Failed to deserialize figures. Reason: " + e.Message);
-            }
-            try
-            {
-                Figures[] figuresList = (Figures[])formatter.Deserialize(fileStream);
-                foreach (Figures figures in figuresList)
+                catch (SerializationException e)
                 {
-                    Image img = Parent.BackgroundImage ?? new Bitmap(Parent.Width, Parent.Height);
-                    Graphics g = Graphics.FromImage(img);
-                    Pen BlackPen = new Pen(Color.Black, 2);
-                    string[] NamesOfFigures = model.LoadFigures(g, BlackPen, figures);
-                    for (int i = 0; i < NamesOfFigures.Length; i++)
-                        ListOfFigures.Items.Add(NamesOfFigures[i]);
-                    g.Flush();
-                    Parent.BackgroundImage = img;
-                    Parent.Refresh();
-                    g.Dispose();
+                    Console.WriteLine("Failed to deserialize figures. Reason: " + e.Message);
                 }
-            }
-            catch (SerializationException e)
-            {
-                Console.WriteLine("Failed to deserialize figures. Reason: " + e.Message);
-            }
-            try
-            {
-                List<string[]> scriptsList = (List<string[]>)formatter.Deserialize(fileStream);
-                foreach (string[] scripts in scriptsList)
+                try
                 {
-                    view.AddToScriptList(scripts);
+                    //Figures[] figuresList = (Figures[])formatter.Deserialize(fileStream);
+                    foreach (Figures figures in layout.Figures)
+                    {
+                        Image img = Parent.BackgroundImage ?? new Bitmap(Parent.Width, Parent.Height);
+                        Graphics g = Graphics.FromImage(img);
+                        Pen BlackPen = new Pen(Color.Black, 2);
+                        string[] NamesOfFigures = model.LoadFigures(g, BlackPen, figures);
+                        for (int i = 0; i < NamesOfFigures.Length; i++)
+                            ListOfFigures.Items.Add(NamesOfFigures[i]);
+                        g.Flush();
+                        Parent.BackgroundImage = img;
+                        Parent.Refresh();
+                        g.Dispose();
+                    }
                 }
+                catch (SerializationException e)
+                {
+                    Console.WriteLine("Failed to deserialize figures. Reason: " + e.Message);
+                }
+                try
+                {
+                    foreach (string[] scripts in layout.Scripts)
+                    {
+                        view.AddToScriptList(scripts);
+                    }
+                }
+                catch (SerializationException e)
+                {
+                    Console.WriteLine("Failed to deserialize figures. Reason: " + e.Message);
+                }
+                if (fileStream.Position == fileStream.Length)
+                    fileStream.Close();
             }
-            catch (SerializationException e)
-            {
-                Console.WriteLine("Failed to deserialize figures. Reason: " + e.Message);
-            }
-            if (fileStream.Position == fileStream.Length)
-                fileStream.Close();
             ParentForMouseActivity = Parent;
         }
         public void Save(string filename, Panel Parent, List<string[]> ScriptsList)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream fileStream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            PropertyControls[] propertyControlsAll = model.SaveData(Parent);
-            formatter.Serialize(fileStream, propertyControlsAll);
-            Figures[] figuresOfProject = model.SaveFigures();
-            formatter.Serialize(fileStream, figuresOfProject);
-            formatter.Serialize(fileStream, ScriptsList);
-            fileStream.Close();
+            XmlSerializer formatter = new XmlSerializer(typeof(XMLLayout));
+            using (FileStream fileStream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                PropertyControls[] propertyControlsAll = model.SaveData(Parent);
+                Figures[] figuresOfProject = model.SaveFigures();
+                XMLLayout layout = new XMLLayout(propertyControlsAll, figuresOfProject, ScriptsList);
+                formatter.Serialize(fileStream, layout);
+                fileStream.Close();
+            }
         }
         public void CtrlPressed()
         {

@@ -98,6 +98,7 @@
     <Compile Include="Variables.designer.cs">
       <DependentUpon>Variables.cs</DependentUpon>
     </Compile>
+    <Compile Include="XMLLayout.cs" />
     <EmbeddedResource Include="CheckButton.resx">
       <DependentUpon>CheckButton.cs</DependentUpon>
     </EmbeddedResource>
